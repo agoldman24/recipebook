@@ -243,6 +243,7 @@ const ProfileTab = (props) => {
                         width: "150px",
                       }}
                       onClick={openProfileEditor}
+                      disabled={!displayUserDetail}
                     >
                       Edit Profile
                     </Button>
