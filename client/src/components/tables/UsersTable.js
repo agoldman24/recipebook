@@ -68,15 +68,15 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    visitUserProfile: (user, currentTab, displayUser) => {
+    visitUserProfile: (user, activeTab, displayUser) => {
       dispatch({ type: SET_DISPLAY_USER, user });
       dispatch({
         type: SET_ACTIVE_TAB,
         currentTab: {
-          name: currentTab.name,
+          name: activeTab,
           displayUserId: !!displayUser ? displayUser.id : null,
         },
-        newTab: { name: PROFILE_TAB },
+        newTab: PROFILE_TAB,
         operation: PUSH,
       });
       dispatch({ type: GET_USER_DETAIL_REQUESTED });

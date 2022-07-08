@@ -160,13 +160,13 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({ type: CLEAR_ERROR_MESSAGES });
       dispatch({ type: INIT_HYDRATION });
     },
-    setActiveTab: (name, user) => {
+    setActiveTab: (newTab, user) => {
       dispatch({
         type: SET_ACTIVE_TAB,
         currentTab: null,
-        newTab: { name },
+        newTab
       });
-      if (name === PROFILE_TAB) {
+      if (newTab === PROFILE_TAB) {
         dispatch({ type: SET_DISPLAY_USER, user });
         dispatch({ type: GET_USER_DETAIL_REQUESTED });
       }
@@ -175,7 +175,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: SET_ACTIVE_TAB,
         currentTab: null,
-        newTab: { name: RECIPE_TAB },
+        newTab: RECIPE_TAB
       });
       dispatch({ type: SIGN_OUT });
       dispatch({ type: SHOW_SNACKBAR, message: "You're signed out" });

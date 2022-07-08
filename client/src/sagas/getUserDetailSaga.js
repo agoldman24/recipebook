@@ -15,7 +15,7 @@ import {
 } from "../variables/Constants";
 
 const getActiveUser = (state) => state.activeUser;
-const getActiveTab = (state) => state.activeTab.name;
+const getActiveTab = (state) => state.activeTab;
 const getDisplayUser = (state) => state.displayUser;
 const getDisplayUserDetail = (state) => state.displayUserDetail;
 

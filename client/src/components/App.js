@@ -71,14 +71,14 @@ class App extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (
       this.state.keyword !== prevState.keyword &&
-      this.props.activeTab.name === RECIPE_TAB
+      this.props.activeTab === RECIPE_TAB
     ) {
       document.getElementById("container").scrollTo(0, 0);
       this.props.getRecipes(this.props.recipeCategory, this.state.keyword);
     }
   }
   renderActiveTab = () => {
-    switch (this.props.activeTab.name) {
+    switch (this.props.activeTab) {
       case SIGN_IN_TAB:
         return <SignInTab />;
       case SIGN_UP_TAB:
@@ -96,7 +96,7 @@ class App extends React.Component {
     }
   };
   render() {
-    const activeTab = this.props.activeTab.name;
+    const activeTab = this.props.activeTab;
     const showRecipeCategories =
       this.props.isLoggedIn && activeTab === RECIPE_TAB;
     return (
@@ -190,11 +190,11 @@ const mapDispatchToProps = (dispatch) => {
     completeHydration: () => dispatch({ type: COMPLETE_HYDRATION }),
     setRecipeCategory: (category) =>
       dispatch({ type: SET_RECIPE_CATEGORY, category }),
-    setActiveTab: (name) =>
+    setActiveTab: (newTab) =>
       dispatch({
         type: SET_ACTIVE_TAB,
         currentTab: null,
-        newTab: { name },
+        newTab
       }),
     getRecipes: (category, keyword) =>
       dispatch({
@@ -203,8 +203,8 @@ const mapDispatchToProps = (dispatch) => {
           category === "All"
             ? ALL_RECIPES
             : category === "By Friends"
-            ? FRIEND_RECIPES
-            : CREATED_RECIPES,
+              ? FRIEND_RECIPES
+              : CREATED_RECIPES,
         keyword,
         timestamp: Date.now(),
       }),

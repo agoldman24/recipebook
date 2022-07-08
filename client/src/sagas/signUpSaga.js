@@ -42,7 +42,7 @@ function* signUp(action) {
       yield put({
         type: SET_ACTIVE_TAB,
         currentTab: null,
-        newTab: { name: PROFILE_TAB },
+        newTab: PROFILE_TAB
       });
       yield put({ type: SHOW_SNACKBAR, message: "Sign up successful" });
     }

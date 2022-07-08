@@ -1,7 +1,7 @@
 export default Object.assign(
   {},
   {
-    activeTab: { name: null },
+    activeTab: null,
     isSpinnerVisible: false,
     isHydrated: false,
     tabHistory: [],

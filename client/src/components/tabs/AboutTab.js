@@ -46,7 +46,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: SET_ACTIVE_TAB,
         currentTab: null,
-        newTab: { name: SIGN_UP_TAB },
+        newTab: SIGN_UP_TAB
       }),
   };
 };

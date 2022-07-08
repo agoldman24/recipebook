@@ -136,12 +136,12 @@ class RecipeList extends React.Component {
   }
   fetchRecipes() {
     const requestType =
-      this.props.activeTab.name === RECIPE_TAB
+      this.props.activeTab === RECIPE_TAB
         ? this.props.recipeCategory === "All"
           ? ALL_RECIPES
           : this.props.recipeCategory === "By Friends"
-          ? FRIEND_RECIPES
-          : CREATED_RECIPES
+            ? FRIEND_RECIPES
+            : CREATED_RECIPES
         : this.props.displayUserDetail.activeDetail;
     this.props.getRecipes(requestType, this.props.keyword);
   }
@@ -273,19 +273,19 @@ class RecipeList extends React.Component {
             {this.props.isFetchingRecipes
               ? "Loading Recipes..."
               : !this.props.isSpinnerVisible &&
-                !this.props.recipesFetched &&
-                !this.props.networkFailed && (
-                  <Link
-                    href="#"
-                    onClick={() => this.fetchRecipes()}
-                    style={{
-                      fontSize: "14px",
-                      color: defaultTheme.palette.primary.main,
-                    }}
-                  >
-                    Load more recipes
-                  </Link>
-                )}
+              !this.props.recipesFetched &&
+              !this.props.networkFailed && (
+                <Link
+                  href="#"
+                  onClick={() => this.fetchRecipes()}
+                  style={{
+                    fontSize: "14px",
+                    color: defaultTheme.palette.primary.main,
+                  }}
+                >
+                  Load more recipes
+                </Link>
+              )}
           </div>
         </GridList>
         {!this.props.isFetchingRecipes &&
@@ -294,7 +294,7 @@ class RecipeList extends React.Component {
             <div style={centeredTextStyle}>
               <h4>
                 {!!this.props.displayUserDetail &&
-                this.props.displayUserDetail.activeDetail === LIKED_RECIPES
+                  this.props.displayUserDetail.activeDetail === LIKED_RECIPES
                   ? "No Liked Posts Yet"
                   : "No Posts to Display"}
               </h4>
@@ -332,8 +332,8 @@ class RecipeList extends React.Component {
                 !this.props.createdRecipeIds
                   ? false
                   : this.props.createdRecipeIds.includes(
-                      this.state.detailRecipe.id
-                    )
+                    this.state.detailRecipe.id
+                  )
               }
             />
           )}
@@ -410,8 +410,8 @@ class RecipeList extends React.Component {
           message={
             this.state.isDeleteModalVisible
               ? "Are you sure you want to delete '" +
-                this.props.recipes[this.state.pickedIndex].name +
-                "'?"
+              this.props.recipes[this.state.pickedIndex].name +
+              "'?"
               : ""
           }
         />
@@ -444,7 +444,7 @@ const mapStateToProps = (state) => {
     isFetchingRecipes: state.isFetchingRecipes,
     networkFailed: state.errorMessages.networkFailed,
     recipesFetched:
-      (state.activeTab.name === RECIPE_TAB &&
+      (state.activeTab === RECIPE_TAB &&
         ((state.recipeCategory === "All" && state.recipesFetched.all) ||
           (state.recipeCategory === "By Friends" &&
             state.recipesFetched.friends) ||
@@ -453,8 +453,8 @@ const mapStateToProps = (state) => {
       (!!state.displayUserDetail &&
         ((state.displayUserDetail.activeDetail === CREATED_RECIPES &&
           (!!state.activeUser &&
-          !!state.displayUser &&
-          state.activeUser.id === state.displayUser.id
+            !!state.displayUser &&
+            state.activeUser.id === state.displayUser.id
             ? state.recipesFetched.created
             : state.recipesFetched.displayUserCreated)) ||
           (state.displayUserDetail.activeDetail === LIKED_RECIPES &&
@@ -482,15 +482,15 @@ const mapDispatchToProps = (dispatch) => {
         keyword,
       });
     },
-    visitUserProfile: (user, currentTab, displayUser) => {
+    visitUserProfile: (user, activeTab, displayUser) => {
       dispatch({ type: SET_DISPLAY_USER, user });
       dispatch({
         type: SET_ACTIVE_TAB,
         currentTab: {
-          name: currentTab.name,
+          name: activeTab,
           displayUserId: !!displayUser ? displayUser.id : null,
         },
-        newTab: { name: PROFILE_TAB },
+        newTab: PROFILE_TAB,
         operation: PUSH,
       });
       dispatch({ type: GET_USER_DETAIL_REQUESTED });

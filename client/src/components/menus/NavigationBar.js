@@ -231,7 +231,7 @@ const NavigationBar = (props) => {
               <InputBase
                 id="searchInput"
                 placeholder={
-                  props.activeTab.name === USERS_TAB
+                  props.activeTab === USERS_TAB
                     ? "Search users..."
                     : "Search recipes..."
                 }
@@ -246,8 +246,8 @@ const NavigationBar = (props) => {
                   root: !(props.isSearchAvailable && isSearchVisible)
                     ? props.classes.hiddenInputRoot
                     : isSearchFocused
-                    ? props.classes.focusedInputRoot
-                    : props.classes.inputRoot,
+                      ? props.classes.focusedInputRoot
+                      : props.classes.inputRoot,
                   input: props.classes.inputInput,
                 }}
               />
@@ -279,7 +279,7 @@ const NavigationBar = (props) => {
             )}
             <Grid item>
               {props.isLoggedIn ? (
-                props.activeTab.name === PROFILE_TAB ? (
+                props.activeTab === PROFILE_TAB ? (
                   <Button
                     className={props.classes.button}
                     onClick={() => {
@@ -312,13 +312,13 @@ const NavigationBar = (props) => {
                       setIsSearchVisible(false);
                       props.setKeyword("");
                       props.setActiveTab(
-                        props.activeTab.name === SIGN_IN_TAB
+                        props.activeTab === SIGN_IN_TAB
                           ? SIGN_UP_TAB
                           : SIGN_IN_TAB
                       );
                     }}
                   >
-                    {props.activeTab.name === SIGN_IN_TAB
+                    {props.activeTab === SIGN_IN_TAB
                       ? "Sign Up"
                       : "Log In"}
                   </Button>
@@ -347,7 +347,7 @@ const mapStateToProps = (state) => {
   return {
     activeTab: state.activeTab,
     isSearchAvailable:
-      state.activeTab.name === USERS_TAB || state.activeTab.name === RECIPE_TAB,
+      state.activeTab === USERS_TAB || state.activeTab === RECIPE_TAB,
     isFetchingRecipes: state.isFetchingRecipes,
     isLoggedIn: !!state.activeUser,
     activeUser: state.activeUser,
@@ -362,13 +362,13 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({ type: CLEAR_ERROR_MESSAGES });
       dispatch({ type: INIT_HYDRATION });
     },
-    setActiveTab: (name, user) => {
+    setActiveTab: (newTab, user) => {
       dispatch({
         type: SET_ACTIVE_TAB,
         currentTab: null,
-        newTab: { name },
+        newTab
       });
-      if (name === PROFILE_TAB) {
+      if (newTab === PROFILE_TAB) {
         dispatch({ type: SET_DISPLAY_USER, user });
         dispatch({ type: GET_USER_DETAIL_REQUESTED });
       }
@@ -377,7 +377,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: SET_ACTIVE_TAB,
         currentTab: null,
-        newTab: { name: RECIPE_TAB },
+        newTab: RECIPE_TAB
       });
       dispatch({ type: SIGN_OUT });
       dispatch({ type: SHOW_SNACKBAR, message: "You're signed out" });
