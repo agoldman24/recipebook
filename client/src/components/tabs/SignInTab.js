@@ -145,11 +145,11 @@ const mapDispatchToProps = (dispatch) => {
     signIn: (username, password) => {
       dispatch({ type: SIGN_IN_REQUESTED, username, password });
     },
-    setActiveTab: (name) =>
+    setActiveTab: (newTab) =>
       dispatch({
         type: SET_ACTIVE_TAB,
         currentTab: null,
-        newTab: { name },
+        newTab
       }),
   };
 };

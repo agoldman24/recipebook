@@ -150,10 +150,11 @@ export const snackbar = (state = StateTree.snackbar, action) => {
 };
 
 const activeTab = (state = StateTree.activeTab, action) => {
+  console.log(action);
   switch (action.type) {
     case SET_ACTIVE_TAB:
       document.getElementById("container").scrollTo(0, 0);
-      localStorage.setItem("activeTab", action.newTab.name);
+      localStorage.setItem("activeTab", action.newTab);
       return action.newTab;
     default:
       return state;
@@ -288,7 +289,7 @@ const displayUser = (state = null, action) => {
           return state;
       }
     case SET_ACTIVE_TAB:
-      if (action.newTab.name !== PROFILE_TAB) {
+      if (action.newTab !== PROFILE_TAB) {
         return null;
       } else {
         return state;
@@ -339,21 +340,21 @@ const displayUserDetail = (state = null, action) => {
       return !state
         ? state
         : {
-            ...state,
-            likedRecipes: {
-              ...state.likedRecipes,
-              ...action.recipes,
-            },
-          };
+          ...state,
+          likedRecipes: {
+            ...state.likedRecipes,
+            ...action.recipes,
+          },
+        };
     case APPEND_CREATED_RECIPES:
       return !!state && action.appendTo === DISPLAY_USER
         ? {
-            ...state,
-            createdRecipes: {
-              ...state.createdRecipes,
-              ...action.recipes,
-            },
-          }
+          ...state,
+          createdRecipes: {
+            ...state.createdRecipes,
+            ...action.recipes,
+          },
+        }
         : state;
     case DELETE_RECIPE:
       if (!!state) {
@@ -381,9 +382,9 @@ const displayUserDetail = (state = null, action) => {
             likedRecipes: action.keep
               ? { ...state.likedRecipes, [action.recipe.id]: action.recipe }
               : action.user.likedRecipeIds.reduce((accum, { id }) => {
-                  accum[id] = state.likedRecipes[id];
-                  return accum;
-                }, {}),
+                accum[id] = state.likedRecipes[id];
+                return accum;
+              }, {}),
           };
         case FOLLOWERS:
           return {
@@ -391,11 +392,11 @@ const displayUserDetail = (state = null, action) => {
             followers: action.keep
               ? { [action.user.id]: action.user, ...state.followers }
               : Object.keys(state.followers)
-                  .filter((id) => id !== action.user.id)
-                  .reduce((accum, id) => {
-                    accum[id] = state.followers[id];
-                    return accum;
-                  }, {}),
+                .filter((id) => id !== action.user.id)
+                .reduce((accum, id) => {
+                  accum[id] = state.followers[id];
+                  return accum;
+                }, {}),
             following: Object.keys(state.following).includes(action.user2.id)
               ? { [action.user.id]: action.user, ...state.following }
               : state.following,
@@ -411,7 +412,7 @@ const displayUserDetail = (state = null, action) => {
           return state;
       }
     case SET_ACTIVE_TAB:
-      if (action.newTab.name !== PROFILE_TAB) {
+      if (action.newTab !== PROFILE_TAB) {
         if (!!state && !!state.profileImage) {
           URL.revokeObjectURL(state.profileImage);
         }
@@ -428,11 +429,11 @@ const profileEditor = (state = StateTree.profileEditor, action) => {
     case TOGGLE_PROFILE_EDITOR:
       return !!action.firstName
         ? {
-            firstName: action.firstName,
-            lastName: action.lastName,
-            username: action.username,
-            profileImage: action.profileImage,
-          }
+          firstName: action.firstName,
+          lastName: action.lastName,
+          username: action.username,
+          profileImage: action.profileImage,
+        }
         : null;
     case UPDATE_PROFILE_EDITOR:
       if (!!action.imageUrl) {
@@ -568,7 +569,7 @@ const refreshNeeded = (state = StateTree.refreshNeeded, action) => {
       return true;
     case SET_ACTIVE_TAB:
       return (
-        action.newTab.name === RECIPE_TAB || action.newTab.name === USERS_TAB
+        action.newTab === RECIPE_TAB || action.newTab === USERS_TAB
       );
     default:
       return state;
@@ -611,9 +612,9 @@ const createdRecipes = (state = StateTree.createdRecipes, action) => {
     case APPEND_CREATED_RECIPES:
       return action.appendTo === CREATED_RECIPES
         ? {
-            ...state,
-            ...action.recipes,
-          }
+          ...state,
+          ...action.recipes,
+        }
         : state;
     case DELETE_RECIPE:
       const newState = { ...state };
@@ -710,13 +711,13 @@ const recipesFetched = (state = StateTree.recipesFetched, action) => {
     case APPEND_CREATED_RECIPES:
       return action.appendTo === CREATED_RECIPES
         ? {
-            ...state,
-            created: Object.keys(action.recipes).length < 20,
-          }
+          ...state,
+          created: Object.keys(action.recipes).length < 20,
+        }
         : {
-            ...state,
-            displayUserCreated: Object.keys(action.recipes).length < 20,
-          };
+          ...state,
+          displayUserCreated: Object.keys(action.recipes).length < 20,
+        };
     case APPEND_LIKED_RECIPES:
       return {
         ...state,
@@ -731,7 +732,7 @@ const recipesFetched = (state = StateTree.recipesFetched, action) => {
         liked: Object.keys(action.likedRecipes).length < 20,
       };
     case SET_ACTIVE_TAB:
-      if (action.newTab.name !== PROFILE_TAB) {
+      if (action.newTab !== PROFILE_TAB) {
         return {
           ...state,
           liked: false,

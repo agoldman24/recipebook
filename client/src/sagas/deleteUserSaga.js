@@ -25,7 +25,7 @@ function* deleteUser() {
     yield put({
       type: SET_ACTIVE_TAB,
       currentTab: null,
-      newTab: { name: RECIPE_TAB },
+      newTab: RECIPE_TAB
     });
     yield put({ type: SIGN_OUT });
     yield put({ type: SHOW_SNACKBAR, message: "Your account was deleted" });

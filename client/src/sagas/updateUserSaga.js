@@ -95,8 +95,8 @@ function* updateUser(action) {
           });
           yield put({ type: SET_ACTIVE_DETAIL, detail: CREATED_RECIPES });
         } else {
-          if (activeTab.name !== RECIPE_TAB)
-            yield put({ type: SET_ACTIVE_TAB, newTab: { name: RECIPE_TAB } });
+          if (activeTab !== RECIPE_TAB)
+            yield put({ type: SET_ACTIVE_TAB, newTab: RECIPE_TAB });
           yield put({
             type: SET_RECIPE_CATEGORY,
             category: recipeCategory === "By Me" ? "By Me" : "All",
@@ -123,8 +123,8 @@ function* updateUser(action) {
               displayUserDetail.activeDetail === CREATED_RECIPES
                 ? createdRecipes[action.recipeId]
                 : action.keep
-                ? detailRecipe
-                : displayUserDetail.likedRecipes[action.recipeId],
+                  ? detailRecipe
+                  : displayUserDetail.likedRecipes[action.recipeId],
             keep: action.keep,
             user,
           });

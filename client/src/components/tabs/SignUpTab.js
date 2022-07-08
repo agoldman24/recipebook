@@ -183,11 +183,11 @@ const mapDispatchToProps = (dispatch) => {
         username,
         password,
       }),
-    setActiveTab: (name) =>
+    setActiveTab: (newTab) =>
       dispatch({
         type: SET_ACTIVE_TAB,
         currentTab: null,
-        newTab: { name },
+        newTab
       }),
   };
 };

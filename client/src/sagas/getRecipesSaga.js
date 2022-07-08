@@ -24,7 +24,7 @@ import {
 const getOldestFetchedRecipeTimestamp = (state) =>
   state.oldestFetchedRecipeTimestamp;
 const getRefreshNeeded = (state) => state.refreshNeeded;
-const getActiveTab = (state) => state.activeTab.name;
+const getActiveTab = (state) => state.activeTab;
 const getActiveUser = (state) => state.activeUser;
 const getDisplayUser = (state) => state.displayUser;
 const getDisplayUserDetail = (state) => state.displayUserDetail;
@@ -61,9 +61,9 @@ function* getRecipes(action) {
           res = yield call(
             Api.get,
             "/getRecipesByKeyword?keyword=" +
-              action.keyword +
-              "&timestamp=" +
-              timestamp
+            action.keyword +
+            "&timestamp=" +
+            timestamp
           );
           yield put({
             type: !!action.timestamp ? REPLACE_ALL_RECIPES : APPEND_ALL_RECIPES,
@@ -100,9 +100,9 @@ function* getRecipes(action) {
             res = yield call(
               Api.get,
               "/getRecipesByIdsAndKeyword?ids=" +
-                ids +
-                "&keyword=" +
-                action.keyword
+              ids +
+              "&keyword=" +
+              action.keyword
             );
             yield put({
               type: REPLACE_FRIEND_RECIPES,
@@ -156,9 +156,9 @@ function* getRecipes(action) {
             res = yield call(
               Api.get,
               "/getRecipesByIdsAndKeyword?ids=" +
-                recipeIds.map(({ id }) => id) +
-                "&keyword=" +
-                action.keyword
+              recipeIds.map(({ id }) => id) +
+              "&keyword=" +
+              action.keyword
             );
             yield put({
               type: REPLACE_CREATED_RECIPES,

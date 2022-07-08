@@ -116,7 +116,7 @@ const ProfileTab = (props) => {
     }
     return (
       props.profileEditor.profileImage ===
-        props.displayUserDetail.profileImage &&
+      props.displayUserDetail.profileImage &&
       props.profileEditor.firstName === props.displayUser.firstName &&
       props.profileEditor.lastName === props.displayUser.lastName &&
       props.profileEditor.username === props.displayUser.username
@@ -128,7 +128,7 @@ const ProfileTab = (props) => {
     if (updateOccurred) {
       const imageData =
         props.profileEditor.profileImage !==
-        props.displayUserDetail.profileImage
+          props.displayUserDetail.profileImage
           ? props.profileEditor.profileImage
           : null;
       const firstName =
@@ -188,7 +188,7 @@ const ProfileTab = (props) => {
             if (!!displayUserId) {
               props.setDisplayUser(props.users[displayUserId]);
             }
-            props.setActiveTab(tabHistory[tabHistory.length - 1]);
+            props.setActiveTab(tabHistory[tabHistory.length - 1].name);
           }
         }}
       >
@@ -251,7 +251,7 @@ const ProfileTab = (props) => {
                     <Button
                       endIcon={
                         props.isUpdatingFollowers ||
-                        !activeUser.followingIds.includes(id) ? null : (
+                          !activeUser.followingIds.includes(id) ? null : (
                           <ExpandMoreIcon />
                         )
                       }

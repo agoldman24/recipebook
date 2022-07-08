@@ -22,7 +22,7 @@ function* signIn(action) {
       yield put({
         type: SET_ACTIVE_TAB,
         currentTab: null,
-        newTab: { name: RECIPE_TAB },
+        newTab: RECIPE_TAB
       });
       yield put({ type: SHOW_SNACKBAR, message: "Login successful" });
     } else {

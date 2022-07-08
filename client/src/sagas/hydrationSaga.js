@@ -47,13 +47,13 @@ function* runHydration() {
       yield put({
         type: SET_ACTIVE_TAB,
         currentTab: null,
-        newTab: { name: activeTab },
+        newTab: activeTab
       });
     } else {
       yield put({
         type: SET_ACTIVE_TAB,
         currentTab: null,
-        newTab: { name: RECIPE_TAB },
+        newTab: RECIPE_TAB
       });
     }
     yield put({ type: COMPLETE_HYDRATION });
