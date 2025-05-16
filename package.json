@@ -2,6 +2,9 @@
   "name": "recipebook",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "16.16.0"
+  },
   "scripts": {
     "dev": "concurrently \"node index.js\" \"cd client && npm start\"",
     "start": "npm i -S mongoose express body-parser morgan cors && node index.js",
