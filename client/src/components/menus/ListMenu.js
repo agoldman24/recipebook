@@ -94,7 +94,7 @@ const ListMenu = ({
             <ListItemIcon style={iconStyle}>
               <PeopleAltIcon />
             </ListItemIcon>
-            <ListItemText primary="Users" />
+            <ListItemText primary="Chefs" />
           </ListItem>
           <ListItem
             button
